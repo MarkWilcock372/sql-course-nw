@@ -1,7 +1,7 @@
 /*
 Example lesson stub
 */
--- Some explantion here
+-- Some explanation here
 SELECT   ps.PatientId,
          ps.AdmittedDate,
          ps.DischargeDate,
