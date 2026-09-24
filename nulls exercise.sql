@@ -5,11 +5,10 @@
 /*
  * Add a WHERE clause to the SQL query below to filter to those patients for whom ethnicity is not known  
 */
-SELECT
-	ps.PatientId
-	,ps.Ethnicity
-FROM
-	PatientStay ps ;
+SELECT ps.PatientId,
+       ps.Ethnicity
+FROM   PatientStay AS ps
+WHERE  PS.Ethnicity IS NULL;
 
 /*
  * Improve the SQL query below so that the values of the EthnicityIsNull calculated column is 'Not Known' rather than NULL
@@ -18,7 +17,7 @@ FROM
 SELECT
 	ps.PatientId
 	,ps.Ethnicity
-	,'???' AS EthnicityIfNull
+	,ISNULL(ps.Ethnicity, 'Not Known') AS EthnicityIfNull
 FROM
 	PatientStay ps ;
 
@@ -29,7 +28,7 @@ FROM
 SELECT
 	ps.PatientId
 	,ps.Ethnicity
-	,'???' AS EthnicityCoalesce
+	,COALESCE(ps.Ethnicity, 'not known') AS EthnicityCoalesce
 FROM
 	PatientStay ps ;
 
@@ -38,3 +37,8 @@ FROM
  * NumberOfPatients
  * NumberOfPatientsWithKnownEthnicity
 */
+
+SELECT 
+	*
+	FROM PatientStay ps
+
