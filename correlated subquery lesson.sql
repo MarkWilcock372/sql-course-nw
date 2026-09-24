@@ -126,7 +126,14 @@ FROM   (SELECT ps.PatientId,
 ORDER BY Gap DESC
 
 
-
+SELECT outer1.PatientId,
+               (SELECT MAX(inner1.PatientId)
+                FROM   PatientStay inner1
+                WHERE  inner1.PatientId < outer1.PatientId) AS PreviouslyBookedPatientId,
+               (SELECT MIN(PatientId)
+                FROM   PatientStay
+                WHERE  PatientId > outer1.PatientId) AS NextBookedPatientId
+        FROM   PatientStay AS outer1
 
 
 /*
