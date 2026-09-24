@@ -86,12 +86,18 @@ SELECT
 	cc.Country
 	, cc.DateRecorded
 	, cc.DailyCases
+    , RANK() OVER (PARTITION BY cc.Country ORDER BY cc.DailyCases DESC) AS Ranking
 FROM
 	CovidCase cc)
 SELECT
-	*
+	cte.Country,
+    cte.Ranking,
+    cte.DailyCases,
+    cte.DateRecorded
 FROM
 	cte
+WHERE 
+    cte.Ranking <= 3
 
 /*
 Advanced Section
